@@ -18,8 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
-
-
 @Configuration // Marca a classe como uma classe de configuração do Spring.
 @EnableWebSecurity // Habilita a configuração de segurança web customizada.
 @EnableMethodSecurity //Ativando a Segurança de Métodos
@@ -41,6 +39,7 @@ public class SecurityConfigurations {
                     // Libera endpoint "secreto" de criação de admin.
                     req.requestMatchers(HttpMethod.POST, "/api/admin/criar-admin").permitAll();
                     // Para qualquer outra requisição, o usuário precisa estar autenticado.
+                    req.requestMatchers("/error").permitAll();
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
