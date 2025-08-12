@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.sghss.security.token.TokenService;
 
 @RestController
@@ -22,7 +21,7 @@ public class AutenticacaoController {
     @Autowired
     private AuthenticationManager manager;
 
-    @Autowired // <-- INJETE O TOKEN SERVICE
+    @Autowired
     private TokenService tokenService;
 
     @PostMapping

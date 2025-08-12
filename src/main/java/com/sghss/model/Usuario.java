@@ -4,49 +4,90 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
+import java.util.Collection;
+import java.util.List;
 
 @Inheritance(strategy = InheritanceType.JOINED)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "usuarios")
+// A interface UserDetails é implementada aqui, na declaração principal da classe.
+public class Usuario implements UserDetails {
 
-@Data // Anotação do Lombok: gera Getters, Setters, toString, equals, hashCode.
-@NoArgsConstructor // Lombok: gera um construtor sem argumentos.
-@AllArgsConstructor // Lombok: gera um construtor com todos os argumentos.
-@Entity // Anotação do JPA: informa que esta classe é uma entidade do banco de dados.
-@Table(name = "usuarios") // Define o nome da tabela no banco de dados.
-
-public class Usuario {
-
-    @Id // Marca o campo como a chave primária (Primary Key) da tabela.
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // O banco de dados irá gerar o valor do ID automaticamente.
+    // --- ATRIBUTOS DA ENTIDADE ---
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
 
-    @Column(nullable = false) // A coluna não pode ser nula no banco.
+    @Column(nullable = false)
     private String nomeCompleto;
 
-    @Column(nullable = false, unique = true) // Não pode ser nulo e deve ser único.
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false, unique = true)
     private String cpf;
 
     @Column(nullable = false)
-    private String senha; // Armazenaremos a senha já criptografada (hash).
+    private String senha;
 
-    @Enumerated(EnumType.STRING) // Diz ao JPA para guardar o nome do Enum ("PACIENTE") em vez do número (0).
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Perfil perfil;
 
     private boolean ativo = true;
-
     private Instant dataCriacao = Instant.now();
-
     private Instant ultimoLogin;
 
-    // Enum para definir os perfis de usuário possíveis no sistema.
+    // --- ENUM DE PERFIL ---
     public enum Perfil {
         PACIENTE,
         PROFISSIONAL_SAUDE,
         ADMIN
+    }
+
+    // --- MÉTODOS DA INTERFACE USERDETAILS ---
+    // Todos os métodos @Override ficam aqui, dentro da classe Usuario principal.
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + perfil.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return this.senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.ativo;
     }
 }

@@ -1,12 +1,9 @@
 package com.sghss.controller.dto;
 
-import java.time.LocalDate;
-
-public record PacienteCadastroDTO(
+public record AdminCadastroDTO(
         String nomeCompleto,
         String email,
         String cpf,
         String senha,
-        LocalDate dataNascimento,
-        String endereco
+        String cargo
 ) {}

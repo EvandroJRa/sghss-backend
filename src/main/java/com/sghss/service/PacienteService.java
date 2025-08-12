@@ -7,7 +7,6 @@ import com.sghss.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.stereotype.Service;
 
 @Service
 public class PacienteService {
@@ -29,7 +28,7 @@ public class PacienteService {
                 dados.nomeCompleto(),
                 dados.email(),
                 dados.cpf(),
-                dados.senha(),
+                senhaCriptografada,
                 dados.dataNascimento(),
                 dados.endereco()
         );
@@ -40,7 +39,7 @@ public class PacienteService {
     //Logica de Busca
     public PacienteDTO buscarPorId(Long id) {
         // Usa o método findById do repositório.
-        // Se não encontrar, lança uma exceção. Vamos criar essa exceção agora.
+        // Se não encontrar, lança uma exceção.
         var paciente = pacienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Paciente não encontrado!")); // Vamos melhorar isso.
 
