@@ -40,6 +40,10 @@ public class SecurityConfigurations {
                     req.requestMatchers(HttpMethod.POST, "/api/admin/criar-admin").permitAll();
                     // Para qualquer outra requisição, o usuário precisa estar autenticado.
                     req.requestMatchers("/error").permitAll();
+
+                     // LINHA PARA LIBERAR A ROTA DE DEBUG:
+                    //req.requestMatchers("/api/pacientes/debug/**").permitAll();
+
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
