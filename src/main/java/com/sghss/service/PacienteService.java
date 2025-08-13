@@ -7,6 +7,7 @@ import com.sghss.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.sghss.exception.ResourceNotFoundException;
 
 @Service
 public class PacienteService {
@@ -35,13 +36,12 @@ public class PacienteService {
         var pacienteSalvo = pacienteRepository.save(paciente);
         return new PacienteDTO(pacienteSalvo);
     }
-
     //Logica de Busca
     public PacienteDTO buscarPorId(Long id) {
-        // Usa o método findById do repositório.
-        // Se não encontrar, lança uma exceção.
+        // Agora, ao invés de um RuntimeException genérico...
         var paciente = pacienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Paciente não encontrado!")); // Vamos melhorar isso.
+                //  lançamos a exceção específica.
+                .orElseThrow(() -> new ResourceNotFoundException("Paciente não encontrado com o ID: " + id));
 
         return new PacienteDTO(paciente);
     }

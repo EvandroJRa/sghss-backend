@@ -19,6 +19,7 @@ public class PacienteController {
     @PostMapping
     public ResponseEntity<PacienteDTO> criarPaciente(@RequestBody @Valid PacienteCadastroDTO dados) {
         PacienteDTO novoPaciente = pacienteService.criar(dados);
+        // Retorna o status 201 Created com os dados do novo paciente no corpo da resposta
         return ResponseEntity.status(HttpStatus.CREATED).body(novoPaciente);
     }
 

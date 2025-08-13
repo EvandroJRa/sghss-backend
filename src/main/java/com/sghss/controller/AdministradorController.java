@@ -21,7 +21,7 @@ public class AdministradorController {
         return ResponseEntity.ok("Dados do dashboard do administrador carregados com sucesso.");
     }
 
-    // ---  ENDPOINT TEMPORÁRIO E SECRETO (ADM)
+    // ---  ENDPOINT TEMPORÁRIO (ADM)
     @PostMapping("/criar-admin")
     public ResponseEntity criarAdmin(@RequestBody @Valid AdminCadastroDTO dados) {
         administradorService.criarAdmin(dados);

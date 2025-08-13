@@ -15,5 +15,4 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
      * Ele vai gerar o SQL: SELECT count(*) FROM pacientes WHERE cpf = ?
      */
     boolean existsByCpf(String cpf);
-
 }
