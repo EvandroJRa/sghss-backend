@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-//import com.sghss.repository.PacienteRepository; // <-- para debug
+import com.sghss.repository.PacienteRepository; // <-- para debug
 //import com.sghss.repository.UsuarioRepository;  // <-- para debug
 //import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,8 +21,8 @@ public class PacienteController {
     @Autowired
     private PacienteService pacienteService;
 
-    //@Autowired
-    //private PacienteRepository pacienteRepository;
+    @Autowired
+    private PacienteRepository pacienteRepository;
 
     //@Autowired
    // private UsuarioRepository usuarioRepository;
@@ -33,10 +33,23 @@ public class PacienteController {
         // Retorna o status 201 Created com os dados do novo paciente no corpo da resposta
         return ResponseEntity.status(HttpStatus.CREATED).body(novoPaciente);
     }
+       @GetMapping("/{id}")
        @PreAuthorize("@customSecurityService.isOwnerOrAdmin(authentication, #id)")
         public ResponseEntity<PacienteDTO> buscarPacientePorId(@PathVariable Long id) {
-            var pacienteDTO = pacienteService.buscarPorId(id);
-            return ResponseEntity.ok(pacienteDTO);
+
+
+           // --- INÍCIO DO CÓDIGO DE TESTE ---
+           // Vamos chamar o repositório diretamente, assim como no método de debug.
+           System.out.println("--- DEBUG: Buscando paciente ID " + id + " diretamente do Controller. ---");
+
+           var paciente = pacienteRepository.findById(id)
+                   .orElseThrow(() -> new com.sghss.exception.ResourceNotFoundException("Paciente não encontrado com o ID: " + id));
+
+           var pacienteDTO = new com.sghss.controller.dto.PacienteDTO(paciente);
+           // --- FIM DO CÓDIGO DE TESTE ---
+
+           return ResponseEntity.ok(pacienteDTO);
+
         }
 
 //    // Método de debug completo no final da classe
