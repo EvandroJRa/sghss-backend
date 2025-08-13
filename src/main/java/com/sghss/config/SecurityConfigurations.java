@@ -41,9 +41,6 @@ public class SecurityConfigurations {
                     // Para qualquer outra requisição, o usuário precisa estar autenticado.
                     req.requestMatchers("/error").permitAll();
 
-                     // LINHA PARA LIBERAR A ROTA DE DEBUG:
-                    //req.requestMatchers("/api/pacientes/debug/**").permitAll();
-
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
