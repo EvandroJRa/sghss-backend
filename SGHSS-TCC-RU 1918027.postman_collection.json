@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "53fdb66b-99c7-4519-8a27-99c9cadad037",
+		"name": "SGHSS-TCC-RU 1918027",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47480572",
+		"_collection_link": "https://evandrojramos-2368113.postman.co/workspace/Evandro's-Workspace~92664e2e-ea23-46e8-8f0c-245ccdf12095/collection/47480572-53fdb66b-99c7-4519-8a27-99c9cadad037?action=share&source=collection_link&creator=47480572"
+	},
+	"item": [
+		{
+			"name": "TE2E-001 - Cadastro de Paciente com Sucesso.",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nomeCompleto\": \"Marcos Doval\",\r\n  \"email\": \"marcos@sghss.com\",\r\n  \"cpf\": \"111.111.111-11\",\r\n  \"senha\": \"senha111\",\r\n  \"dataNascimento\": \"1991-11-11\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pacientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pacientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TE2E-002 - Login com Sucesso e Obtenção de Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"marcos@sghss.com\",\r\n  \"senha\": \"senha111\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TE2E-003 - Tentativa de Acesso a Recurso Protegido Sem Autenticação.",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pacientes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pacientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TE2E-004 - Acesso a Recurso Protegido com Sucesso",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUEkgU0dIU1MiLCJzdWIiOiJtYXJjb3NAc2doc3MuY29tIiwiZXhwIjoxNzU1Mjk1MTczfQ.peerVsAY5-m7iMNC36pXwoXDwDyoV5FkFBUfrdTvgOU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pacientes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pacientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TE2E-005 - Consulta de Paciente Existente",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUEkgU0dIU1MiLCJzdWIiOiJtYXJjb3NAc2doc3MuY29tIiwiZXhwIjoxNzU1Mjk1MTczfQ.peerVsAY5-m7iMNC36pXwoXDwDyoV5FkFBUfrdTvgOU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pacientes/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pacientes",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TE2E-007 - Atualização do Cadastro.",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUEkgU0dIU1MiLCJzdWIiOiJhZG1pbkBzZ2hzcy5jb20iLCJleHAiOjE3NTUyOTYyNDB9.CtUTCq_Ri209SoBpTaPjNW8pneglh_r709sqVMejngE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nomeCompleto\": \"Marcos Doval\",\r\n  \"email\": \"marcos@sghss.com\",\r\n  \"cpf\": \"111.111.111-11\",\r\n  \"senha\": \"senha111\",\r\n  \"dataNascimento\": \"1991-11-11\",\r\n  \"endereco\": \"Endereço atualizado 01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pacientes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pacientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TE2E-008 - Tentativa de Exclusão de Paciente sem Permissão",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUEkgU0dIU1MiLCJzdWIiOiJhZG1pbkBzZ2hzcy5jb20iLCJleHAiOjE3NTUyOTcxOTJ9.koRx_39v6IpYanraF60Wfr2-X5h0WbkouR8JPtFHVW4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pacientes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pacientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
