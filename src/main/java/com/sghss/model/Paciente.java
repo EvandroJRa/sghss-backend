@@ -29,4 +29,12 @@ public class Paciente extends Usuario {
         this.dataNascimento = dataNascimento;
         this.endereco = endereco;
     }
+    public void atualizarInformacoes(com.sghss.controller.dto.PacienteUpdateDTO dados) {
+        if (dados.nomeCompleto() != null && !dados.nomeCompleto().isBlank()) {
+            this.setNomeCompleto(dados.nomeCompleto());
+        }
+        if (dados.endereco() != null) {
+            this.setEndereco(dados.endereco());
+        }
+    }
 }

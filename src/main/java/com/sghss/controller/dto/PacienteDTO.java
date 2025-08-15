@@ -7,10 +7,10 @@ public record PacienteDTO(
         Long idUsuario,
         String nomeCompleto,
         String email,
-        LocalDate dataNascimento
+        LocalDate dataNascimento,
+        String endereco // dever ser removido na produção para preservar a informação do usuário
 ) {
-    // Construtor que serve como "conversor"
     public PacienteDTO(Paciente paciente) {
-        this(paciente.getIdUsuario(), paciente.getNomeCompleto(), paciente.getEmail(), paciente.getDataNascimento());
+        this(paciente.getIdUsuario(), paciente.getNomeCompleto(), paciente.getEmail(), paciente.getDataNascimento(), paciente.getEndereco());
     }
 }

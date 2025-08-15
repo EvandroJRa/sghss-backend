@@ -1,4 +1,3 @@
-// Localização: src/test/java/com/sghss/repository/PacienteRepositoryTest.java
 package com.sghss.repository;
 
 import com.sghss.model.Paciente;
